@@ -1,0 +1,49 @@
+package Lap3;
+
+import java.util.Arrays;
+import java.io.PrintStream;
+import java.util.Scanner;
+import java.security.DomainCombiner;
+
+public class MyArray {
+      int[] array;
+    public MyArray(int[] array) {
+      this.array = array;
+    }
+  
+    	// To find the index of the target in the array. If the target 
+    	// is not found in the array, then the method returns -1.
+    	// Input: int[] array = {12, 10, 9, 45, 2, 10, 10, 45}, 45
+    	// Output: 3
+
+    public int iterativeLinearSearch(int target) {
+    	
+			for(int i=0; i< array.length; i++) {
+				if(target == array[i]) {
+					return i;}
+			}
+		
+    	return -1;
+    	
+    }
+    
+   
+    	// To find the index of the target in the array. If the target 
+    	// is not found in the array, then the method returns -1.
+    	// Input: int[] array = {12, 10, 9, 45, 2, 10, 10, 45}, 15
+    	// Output: -1
+    public int recursiveLinearSearch(int target) {
+    	return this.iterativeLinearSearch(target);
+    }
+    	public void main(String[] args){
+    		int target = 45;
+    		int[] array = new int[]{12, 10, 9, 45, 2, 10, 10, 45};
+    		MyArray my = new MyArray(array);
+    		my.iterativeLinearSearch(target);
+    		
+    			
+    		System.out.println(Arrays.toString(array));
+    		System.out.println(iterativeLinearSearch(target));
+			System.out.println(recursiveLinearSearch(15));
+    	}
+}
