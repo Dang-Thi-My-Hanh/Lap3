@@ -1,0 +1,51 @@
+package Task_1;
+
+public class MyArray_LinearSearch {
+	private static int target = 9;
+	// khai báo 1 mảng
+	private static int[] array ;
+	public MyArray_LinearSearch(int target, int[] array) {
+		this.target = target;
+	    this.array = array;
+	}
+	public static void main(String[] args) {
+		int[] array = {12, 10, 9, 45, 2, 10, 10, 45};//*
+		MyArray_LinearSearch myA = new MyArray_LinearSearch(target, array);
+		System.out.println("Target: "+target);
+		print(array);
+		System.out.println("index target: "+iterativeLinearSearch(target, array));
+		System.out.println("index target: "+recursiveLinearSearch(array, target, 0));
+	}
+	public static void print(int[] array) {
+		System.out.print("input array: ");
+		for(int i=0; i<array.length; i++) {
+			System.out.print(array[i]+" ");
+		}
+		System.out.println();
+	}
+	public static int iterativeLinearSearch(int target, int[] array){	
+		// duyệt mảng
+		for(int i=0; i< array.length; i++) {
+			// xét value == target
+			if(array[i] == target) {
+				// trả về index
+				return i;
+			}
+		}
+		// nếu k có value nào bằng thỉ return -1;
+	    return -1;
+	}
+	public static int recursiveLinearSearch(int[] array, int target, int index) {
+		if(index == array.length) {
+			// trả về -1
+			return -1;
+		}
+		// ktra value tại index == target
+		// nếu bằng tức target tại index đó
+		if(array[index]==target) {
+			// trả về index
+			return index;
+		}
+		return recursiveLinearSearch(array, target, index +1);
+	}
+}
