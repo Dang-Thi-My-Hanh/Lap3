@@ -1,0 +1,92 @@
+package Task_1;
+import java.util.Arrays;
+public class MyArray_BinarySearch {	
+	public MyArray_BinarySearch(int target, int[] array) {
+		this.target = target;
+		this.array = array;
+	}
+	public static void main(String[] args) {
+		int[] array = {8, 3, 92, 9, 10, 6, 57, 4, 12, 66, 2, 75};
+		MyArray_BinarySearch myB = new MyArray_BinarySearch(target, array);
+		System.out.println("Target: "+target);
+		System.out.print("Array Input: ");
+		print(array);
+		System.out.println();
+		System.out.print("Array sortArr: ");
+		print(sortArr(array));
+		System.out.println();
+		System.out.print("Output index: ");
+		System.out.println(iterativeBinarySearch(sortArr(array), target));
+		System.out.println(recursiveBinarySearch(sortArr(array), target, 0, array.length-1));
+		
+	}
+	public static int[] sortArr(int[] arr) {
+		int cont = 0;
+		for(int i=0; i<arr.length-1; i++) {
+			for(int j=i+1; j<arr.length; j++) {
+				if(arr[i] > arr[j]) {
+					cont = arr[i];
+					arr[i] = arr[j];
+					arr[j] = cont;
+				}
+			}
+		}
+		return arr;
+	}
+	public static void print(int[] arr) {
+		for(int i=0; i<arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}
+	}
+	public static int iterativeBinarySearch(int[] arr, int target) {
+		int left = 0;
+		int right = arr.length-1;
+		// ktra đk nếu left > right => vô lý dừng ct
+		while(left <= right) {
+			// chọn ptu ở giữa mid
+			int mid =left + (right-left)/2;
+			// so sánh value mid với target
+			if(arr[mid] == target) {
+				// nếu = thì return mid = index target
+				return mid;
+				// nếu k bằng thì so sánh value mid có lớn hơn target hay k
+			}else if(arr[mid] > target) {
+				// nếu lớn hơn thì bỏ nr mảng bên phải(right) right = mid -1;
+				// rồi quay lại còng lặp while ktra xem left > right k
+				right = mid -1;
+				// ngược lại 
+			}else {
+				//nếu arr[mid] < target thì bỏ nr mảng bên trái(left) left = mid +1
+				// rồi quay lại vòng lặp while để lặp lại các bước trên
+				left = mid +1;
+			}
+			// nếu k có value nào thỏa thì tức là k có target trong array return -1
+		}	
+		return -1;
+		}
+	// Theo phương pháp đệ qui
+	public static int recursiveBinarySearch(int[] arr, int target, int left, int right) {
+		// ktra đk nếu left > right => vô lý dừng ct
+		while(left <= right) {
+			// chọn ptu ở giữa mid
+			int mid = left + (right - left)/2;
+			// so sánh value mid với target
+			if(arr[mid] == target) {
+				// nếu = thì return mid = index target
+				return mid;
+				// nếu k bằng thì so sánh value mid có lớn hơn target hay k
+			}else if( arr[mid] > target) {
+				// nếu lớn hơn thì bỏ nr mảng bên phải(right) right = mid -1;
+				// lặp lại cho đến khi đạt đc dk dừng
+				return recursiveBinarySearch(arr, target, left, mid -1) ;
+				// ngược lại
+			}else {
+				//nếu arr[mid] < target thì bỏ nr mảng bên trái(left) left = mid +1
+				//lặp lại cho đến khi đạt đc dk dừng
+				return recursiveBinarySearch(arr, target, mid+1, right) ;
+			}
+		}
+		// nếu k có value nào thỏa thì tức là k có target trong array return -1
+		return -1;
+		}
+}
