@@ -1,0 +1,88 @@
+package Task_1;
+
+public class Task_1_3 {
+	/* How to change the implemented methods so that they can be used for the case in which the array is sorted by descending order
+	    làm thế nào để thay đổi các phương thức để triển khai để chúng có thể đc sử dụng cho TH mảng giảm dần*/
+	private static int target = 57;
+	private static int[] array;
+	public Task_1_3(int target, int[] array) {
+		this.target = target;
+		this.array = array;
+	}
+	public static void main(String[] args){
+		int[] arr = {8, 3, 92, 9, 10, 6, 57, 4, 12, 66, 2, 75};
+		Task_1_3 ta = new Task_1_3(target, array);
+		System.out.println("Target: "+target);
+		System.out.print("INPUT Array : ");
+		print(arr);
+		System.out.print("Giảm dần: ");
+		print(sortArr(arr));
+		System.out.println("OUTPUT: "+iterativeBinarySearch(sortArr(arr), target));
+		System.out.println("OUTPUTdq: "+recursiveBinarySearch(sortArr(arr), target, 0, arr.length-1));
+		
+	}
+	// in mảng
+	public static void print(int[] arr) {
+		for(int i=0; i<arr.length; i++) {
+			System.out.print(arr[i]+" ");
+		}		
+		System.out.println();
+	}
+	// Sắp xếp mảng theo thứ tự giảm dần
+	public static int[] sortArr(int[] arr) {
+		int cont = 0;
+		for(int i=0; i<arr.length-1; i++) {
+			for(int j=i+1; j<arr.length; j++) {
+				if(arr[i] < arr[j]) {
+		      		cont = arr[i];
+					arr[i] = arr[j];
+					arr[j] = cont;
+					}
+			}
+		}
+		return arr;
+		}
+	/* step1 so sánh target với value ở giữa array 
+    tìm từ bên trái mảng qua nếu left > right loại
+    khi left <= right: chọn ptu ở giữa lm mid         
+step2 loại bỏ 1 nr array mà target k thể ở đó
+    so sánh valur mid với target :
+    nếu  bằng return mid
+    nếu value mid < target thì chỉ cần tìm kiếm nr bên trái
+    ngược lại tìm kiếm nr bên phải
+step3 tiếp tực tìm target trong nr mảng còn lại
+    lặp lại các bước trên trên nr mảng còn lại cho đến tìm đc target or hết ptu
+step4 in ra index nếu tìm đc target ỏr -1 nếu k có target
+    dk dừng: khi thấy target or nr mảng còn hết ptu, TH này return -1*/	
+	public static int iterativeBinarySearch(int[] arr, int target) {
+		int left = 0;
+		int right = arr.length - 1;
+		while(left <= right) {
+			int mid = left +(right - left)/2;
+			if(arr[mid]==target) {
+				return mid;
+			}else if(arr[mid] > target) {
+				left = mid + 1;
+			}else {
+				right = mid - 1;
+			}
+		}
+		return -1;
+	}
+	// Theo phương pháp đệ qui
+	public static int recursiveBinarySearch(int[] arr, int target, int left, int right) {
+		while(left <= right) {
+			int mid = left + (right - left)/2;
+			if(arr[mid] == target) {
+				return mid;
+			}else if(arr[mid] > target){
+				return recursiveBinarySearch(arr, target, mid + 1, right);
+			}else {
+				return recursiveBinarySearch(arr, target, left, mid - 1);
+			}
+		}
+		return -1;
+	}
+
+}
+
